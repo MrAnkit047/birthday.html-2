@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Journey Together ❤️</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Quicksand", sans-serif;
+      background: linear-gradient(to bottom right, #fbc2eb, #a6c1ee);
+      color: #333;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    .intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      color: #fff;
+      padding: 0 20px;
+      animation: fadeDown 2s ease;
+    }
+    .intro h1 {
+      font-family: "Pacifico", cursive;
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    .intro button {
+      padding: 12px 25px;
+      font-size: 1rem;
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .intro button:hover {
+      background-color: #e03e5d;
+    }
+    .hidden {
+      display: none;
+    }
+    .timeline {
+      position: relative;
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 0;
+    }
+    .timeline::after {
+      content: "";
+      position: absolute;
+      width: 4px;
+      background: #fff;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+    }
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 20px 40px;
+      box-sizing: border-box;
+    }
+    .timeline-item.left {
+      left: 0;
+      text-align: right;
+    }
+    .timeline-item.right {
+      left: 50%;
+      text-align: left;
+    }
+    .timeline-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      animation: fadeUp 1.5s ease;
+      transition: transform 0.3s ease;
+    }
+    .timeline-content:hover {
+      transform: scale(1.02);
+    }
+    .timeline-content img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .caption {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .desc {
+      font-size: 0.95rem;
+      color: #666;
+      margin-top: 6px;
+    }
+    .timeline-dot {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background: #ff4d6d;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .timeline-item.left .timeline-dot {
+      left: auto;
+      right: -10px;
+      transform: none;
+    }
+    .timeline-item.right .timeline-dot {
+      left: -10px;
+      transform: none;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 768px) {
+      .timeline::after {
+        left: 20px;
+      }
+      .timeline-item {
+        width: 100%;
+        padding-left: 60px;
+        text-align: left;
+      }
+      .timeline-item.right,
+      .timeline-item.left {
+        left: 0;
+      }
+      .timeline-dot {
+        left: 10px !important;
+      }
+      /* Hide cake animation and confetti on small screens */
+      #cake-animation, #confetti-container {
+        display: none;
+      }
+    }
+    /* Button style for Read Wish */
+    #readWishBtn {
+      text-align: center;
+      margin: 30px 0;
+    }
+    #readWishBtn button {
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      background: #ff4d6d;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #readWishBtn button:hover {
+      background: #e03e5d;
+    }
+    /* Wish page styles */
+    #wishPage {
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+      color: #fff;
+    }
+    #wishPage h2 {
+      font-family: "Pacifico", cursive;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    #wishPage p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    #wishPage button {
+      margin-top: 40px;
+      padding: 10px 25px;
+      font-size: 1rem;
+      background: #fff;
+      color: #ff4d6d;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #wishPage button:hover {
+      background: #f9c0c7;
+    }
+
+    /* Cake and candle container */
+    #cake-animation {
+      position: fixed;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      width: 130px;
+      z-index: 9999;
+      user-select: none;
+      filter: drop-shadow(0 0 10px #ff6f91);
+      animation: cake-glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes cake-glow {
+      0% {
+        filter: drop-shadow(0 0 8px #ff4d6d);
+      }
+      100% {
+        filter: drop-shadow(0 0 20px #ff9aa2);
+      }
+    }
+
+    /* Cake base */
+    #cake {
+      width: 110px;
+      height: 85px;
+      background: #ff4d6d;
+      border-radius: 18px 18px 8px 8px;
+      position: relative;
+      margin: auto;
+      box-shadow: 0 7px 25px rgba(255, 77, 109, 0.6);
+    }
+
+    /* Cake frosting layer */
+    #cake::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 12px;
+      width: 85px;
+      height: 28px;
+      background: #fff0f2;
+      border-radius: 12px;
+      box-shadow: inset 0 4px 10px rgba(255, 255, 255, 0.9);
+    }
+
+    /* Candle */
+    .candle {
+      position: absolute;
+      bottom: 85px;
+      width: 9px;
+      height: 34px;
+      background: #fff;
+      border-radius: 3px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+      animation: flicker 2.5s infinite ease-in-out;
+      transform-origin: bottom center;
+    }
+    .candle:nth-child(1) {
+      left: 20px;
+      animation-delay: 0s;
+    }
+    .candle:nth-child(2) {
+      left: 48px;
+      animation-delay: 0.6s;
+    }
+    .candle:nth-child(3) {
+      left: 77px;
+      animation-delay: 1.2s;
+    }
+
+    /* Flame */
+    .flame {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 11px;
+      height: 16px;
+      background: radial-gradient(
+        circle at center,
+        #ffd54f 0%,
+        #ff6f00 55%,
+        transparent 85%
+      );
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      filter: drop-shadow(0 0 3px #ffb300);
+      animation: flame-flicker 1.8s infinite ease-in-out;
+    }
+
+    @keyframes flicker {
+      0%,
+      100% {
+        transform: rotate(0deg);
+        opacity: 1;
+        filter: drop-shadow(0 0 4px #fff);
+      }
+      50% {
+        transform: rotate(3deg);
+        opacity: 0.85;
+        filter: drop-shadow(0 0 8px #ffeb3b);
+      }
+    }
+
+    @keyframes flame-flicker {
+      0%,
+      100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(-50%) scale(1.15);
+        opacity: 0.75;
+      }
+    }
+
+    /* Confetti container */
+    #confetti-container {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      z-index: 10000;
+    }
+    /* Individual confetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ff4d6d;
+      opacity: 0.9;
+      border-radius: 3px;
+      animation-name: confetti-fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      will-change: transform, opacity;
+    }
+    /* Confetti colors */
+    .confetti.color1 {
+      background-color: #ff4d6d;
+    }
+    .confetti.color2 {
+      background-color: #ff85a2;
+    }
+    .confetti.color3 {
+      background-color: #ffb6c1;
+    }
+    .confetti.color4 {
+      background-color: #fff0f2;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="intro" id="intro">
+    <h1>Happy Birthday to the One Whom I Love Forever 💖</h1>
+    <button onclick="showMemories()">Click to View Our Memories 📸</button>
+  </div>
+
+  <div class="timeline hidden" id="timeline">
+    <div class="timeline-item left">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <img
+          src="https://via.placeholder.com/600x350?text=The+Day+We+Met"
+          alt="The Day We Met"
+        />
+        <div class="caption">The Day We Met</div>
+        <div class="desc">Everything changed the moment I saw you. 💫</div>
+      </div>
+    </div>
+
+    <div class="timeline-item right">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <video width="100%" controls style="border-radius: 10px; margin-bottom: 10px;">
+          <source src="first-date.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="caption">Our First Date</div>
+        <div class="desc">Our first meal, our first laugh, our first memory together. 🍕</div>
+      </div>
+    </div>
+
+    <div class="timeline-item left">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <img
+          src="https://via.placeholder.com/600x350?text=Your+Birthday"
+          alt="Your Birthday"
+        />
+        <div class="caption">Your Birthday 2024</div>
+        <div class="desc">I loved seeing your smile blow out the candles. 🎉</div>
+      </div>
+    </div>
+
+    <div class="timeline-item right">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <video width="100%" controls style="border-radius: 10px; margin-bottom: 10px;">
+          <source src="pokhara-trip.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="caption">Trip to Pokhara</div>
+        <div class="desc">Nature, mountains, and you by my side. 🌄</div>
+      </div>
+    </div>
+
+    <div class="timeline-item left">
+      <span class="timeline-dot"></span>
+      <div class="timeline-content">
+        <img
+          src="https://via.placeholder.com/600x350?text=Random+Selfie"
+          alt="Random Selfie"
+        />
+        <div class="caption">Random Selfie</div>
+        <div class="desc">Just us being silly — the best kind of moment. 😄</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="readWishBtn" class="hidden">
+    <button onclick="showWish()">Click to Read Wish 💌</button>
+  </div>
+
+  <div id="wishPage" class="hidden">
+    <h2>Happy Birthday, to my once in a lifetime !! 🎉</h2>
+    <p>
+     To the one I still love — always have, always will,
+
+Happy Birthday.
+
+I know things aren't the same between us. Maybe we’ve drifted, maybe fate wrote a different story for us… but no matter how far you are, one thing has never changed — I still love you. With every beat of my heart, with every memory I hold, with every quiet night that passes, you’re still there. You always are.
+
+Today is your special day, and even if I can’t be beside you, I’m still wishing with all my soul for your happiness. I hope your day is filled with real smiles, warm hugs, and people who remind you how incredible you are. Because you are — truly.
+
+You may never fully realize how deeply you touched my life, how much joy your presence gave me, how safe I felt when you were near. You were — and are — my heart’s favorite chapter.
+
+Even though we walk different paths now, please know that my love didn’t vanish with time or distance. I carry you with me, in silence and in strength, in tears and in memories, in every piece of love I’ve ever known.
+
+So on your birthday, I’ll quietly whisper a wish into the universe:
+That life gives you every happiness I would’ve given,
+That love finds you in gentle ways,
+And that maybe, somewhere in your heart,
+You still remember the love we shared.
+
+Happy Birthday.
+From someone who still loves you, always.
+    </p>
+    <p style="margin-top: 30px; font-size: 1.1rem;">
+      Forever yours, 💖
+    </p>
+    <button onclick="goBack()">Back to Memories</button>
+  </div>
+
+  <footer>Made with love, for the most beautiful girl in the world. 💌</footer>
+
+  <audio id="bg-music" loop autoplay>
+    <source
+      src="blue.mp3"
+      type="audio/mpeg"
+    />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Cake and candles animation container -->
+  <div id="cake-animation" aria-hidden="true">
+    <div id="cake">
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+  </div>
+
+  <!-- Confetti container -->
+  <div id="confetti-container" aria-hidden="true"></div>
+
+  <script>
+    // Show memories and start music + confetti + cake
+    function showMemories() {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("timeline").classList.remove("hidden");
+      document.getElementById("readWishBtn").classList.remove("hidden");
+      startConfetti();
+      const music = document.getElementById("bg-music");
+      music.play().catch(() => {
+        console.log("Autoplay was blocked by the browser.");
+      });
+    }
+
+    // Show wish message
+    function showWish() {
+      document.getElementById("timeline").classList.add("hidden");
+      document.getElementById("readWishBtn").classList.add("hidden");
+      document.getElementById("wishPage").classList.remove("hidden");
+    }
+
+    // Go back to memories
+    function goBack() {
+      document.getElementById("wishPage").classList.add("hidden");
+      document.getElementById("readWishBtn").classList.remove("hidden");
+      document.getElementById("timeline").classList.remove("hidden");
+    }
+
+    // Confetti logic: creates multiple confetti elements and animates them
+    function startConfetti() {
+      const confettiContainer = document.getElementById("confetti-container");
+      const colors = ["color1", "color2", "color3", "color4"];
+      // Clear existing confetti if any
+      confettiContainer.innerHTML = "";
+      const confettiCount = 40;
+      for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.classList.add(colors[i % colors.length]);
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.animationDuration = 3 + Math.random() * 3 + "s";
+        confetti.style.animationDelay = (Math.random() * 5) + "s";
+        confetti.style.width = 6 + Math.random() * 6 + "px";
+        confetti.style.height = confetti.style.width;
+        confetti.style.opacity = 0.7 + Math.random() * 0.3;
+        confettiContainer.appendChild(confetti);
+      }
+    }
+  </script>
+</body>
+</html>
